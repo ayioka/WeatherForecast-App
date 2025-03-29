@@ -6,7 +6,6 @@ Application Features
 Current weather conditions
 3-day weather forecast
 Location search
-Temperature unit conversion
 Responsive design for all devices
 
 *Technologies Used*
@@ -107,51 +106,14 @@ class WeatherApp {
 window.addEventListener('DOMContentLoaded', () => new WeatherApp());
 ```
 
-### The Backend (Server Code)
 
-I built a Node.js server that talks to the WeatherAPI:
-
-```javascript
-require('dotenv').config();
-const express = require('express');
-const path = require('path');
-const fetch = require('node-fetch');
-
-const app = express();
-const PORT = 3000;
-
-// Serve static files
-app.use(express.static(path.join(__dirname, 'public')));
-
-// My weather API endpoint
-app.get('/api/weather', async (req, res) => {
-  try {
-    const { location } = req.query;
-    if (!location) {
-      return res.status(400).json({ error: 'Please provide a location' });
-    }
-
-    const apiKey = process.env.WEATHER_API_KEY;
-    const response = await fetch(
-      `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${location}&days=5`
-    );
-    
-    if (!response.ok) throw new Error('Weather API failed');
-    
-    const data = await response.json();
-    res.json(data);
-  } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ error: 'Failed to get weather data' });
-  }
-});
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
-```
 
 ## How I Deployed It
+I configured this to run on:
+
+Two web servers (Web01 and Web02)
+
+One load balancer (Lb01)
 
 ### Setting Up the Servers
 
@@ -219,10 +181,6 @@ sudo systemctl restart nginx
    - *Problem*: Kept hitting API limits during testing
    - *Solution*: I implemented client-side caching to reduce calls
 
-3. **Mobile Layout Issues**:
-   - *Problem*: Looked weird on phones
-   - *Solution*: I added responsive CSS with media queries
-
 ## How to Run It Yourself
 
 1. **Local Development**:
@@ -238,5 +196,9 @@ Follow the server setup steps I showed above. Remember to:
 - Keep your API keys secret in `.env`
 - Set up proper firewalls
 - Enable HTTPS in production
+
+Weather data comes from WeatherAPI.com
+
+HERE IS THE VIDEO SAMPLE OF THE WORKING OF APP : https://youtu.be/ulCJRv49y9c?feature=shared
 
 
