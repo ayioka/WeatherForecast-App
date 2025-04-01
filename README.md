@@ -11,7 +11,7 @@ Responsive design for all devices
 *Technologies Used*
 Frontend: HTML, CSS, JavaScript
 Backend: Node.js 
-API: WeatherAPI
+API: WeatherAPI.com
 # My Weather Application Project
 
 - Shows real-time weather for any location
@@ -185,7 +185,7 @@ sudo systemctl restart nginx
 
 1. **Local Development**:
 ```bash
-git clone https://github.com/myaccount/weather-app.git
+git clone https://github.com/ayioka/weather-app.git
 cd weather-app
 npm install
 npm start
